@@ -5,7 +5,7 @@
  */
 
 require("dotenv").config();
-var app = require("../app");
+var app = require("../index");
 var debug = require("debug")("payroll-job-portal-backend:server");
 var http = require("http");
 
