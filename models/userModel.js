@@ -11,32 +11,30 @@ const employeeSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String },
-  phoneNumber: { type: String, required: true },
-  dateOfBirth: { type: Date, required: true },
-  gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
-  bloodGroup: { type: String, required: true },
-  maritalStatus: { type: String, required: true },
+  phoneNumber: { type: String },
+  dateOfBirth: { type: Date },
+  gender: { type: String, enum: ["Male", "Female", "Other"] },
+  bloodGroup: { type: String },
+  maritalStatus: { type: String },
 
   // Work Information
-  employeeId: { type: String, required: true },
+  employeeId: { type: String },
   departmentId: { type: ObjectId, ref: "Department" },
   subDepartmentId: { type: ObjectId },
   designationId: { type: ObjectId, ref: "Designation" },
   jobTitle: { type: String },
   reportingManagerId: { type: ObjectId },
-  workLocation: { type: String, required: true },
+  workLocation: { type: String },
   employeeType: {
     type: String,
     enum: ["Full Time", "Part Time", "Contract"],
-    required: true,
   },
-  probationPeriod: { type: Number, required: true },
+  probationPeriod: { type: Number },
   probationStatus: {
     type: String,
     enum: ["Confirmed", "Probation"],
-    required: true,
   },
-  dateOfJoining: { type: Date, required: true },
+  dateOfJoining: { type: Date },
   ctc: { type: Number },
 
   // Bank Details
@@ -51,11 +49,11 @@ const employeeSchema = new mongoose.Schema({
 
   // Addresses
   addresses: {
-    currentAddress: { type: String, required: true },
-    permanentAddress: { type: String, required: true },
-    houseType: { type: String, required: true },
-    currentResidenceSince: { type: Date, required: true },
-    currentCitySince: { type: Date, required: true },
+    currentAddress: { type: String },
+    permanentAddress: { type: String },
+    houseType: { type: String },
+    currentResidenceSince: { type: Date },
+    currentCitySince: { type: Date },
   },
 
   // Social Profile
@@ -72,9 +70,9 @@ const employeeSchema = new mongoose.Schema({
   // Work History
   workHistory: [
     {
-      department: { type: String, required: true },
-      designation: { type: String, required: true },
-      from: { type: Date, required: true },
+      department: { type: String },
+      designation: { type: String },
+      from: { type: Date },
       to: { type: Date },
     },
   ],

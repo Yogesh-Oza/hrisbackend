@@ -41,6 +41,7 @@ const setPassword = async (req, res) => {
     }
 
     const storedData = getStoredDataByOTP(otp);
+    console.log(storedData);
     const email = storedData.email;
 
     if (storedData.otp == otp) {
@@ -64,24 +65,6 @@ const setPassword = async (req, res) => {
     res.status(500).send({ message: "Error setting password" });
   }
 };
-
-// get all employees fullname followed by id ids
-// const getEmployeeDetails = async (req, res) => {
-//   try {
-//     const users = await User.find();
-//     if (users) {
-//       const userNames = users.map((user) => ({
-//         name: `${user.firstName} ${user.lastName}`,
-//         id: user._id,
-//         employeeId: user.employeeId,
-//       }));
-//       res.status(201).send(userNames);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({ message: "No User Found" });
-//   }
-// };
 
 const getEmployeeDetails = async (req, res) => {
   try {
