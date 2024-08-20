@@ -1,5 +1,11 @@
 const transporter = require("../config/nodemailer");
 
+const twilio = require("twilio");
+const { SID, AUTH_TOKEN, PHONE_NUMBER } = process.env;
+
+// Initialize the Twilio client
+const client = twilio(SID, AUTH_TOKEN);
+
 const otpStore = new Map();
 
 function storeOTP(email, otp, token) {
@@ -21,8 +27,8 @@ function getStoredDataByOTP(otp) {
 }
 
 function sendOtpEmail(email, firstName, otp) {
+  const setPasswordLink = `${process.env.FRONT_END_BASE_URL}/set-password?otp=${otp}`;
   return new Promise((resolve, reject) => {
-    const setPasswordLink = `${process.env.FRONT_END_BASE_URL}/set-password?otp=${otp}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
@@ -45,4 +51,26 @@ function sendOtpEmail(email, firstName, otp) {
   });
 }
 
-module.exports = { storeOTP, getStoredDataByOTP, sendOtpEmail };
+function sendOtpSms(to, otp) {
+  const setPasswordLink = `${process.env.FRONT_END_BASE_URL}/set-password?otp=${otp}`;
+  return new Promise((resolve, reject) => {
+    const messageBody = `Hi, your OTP code is ${otp}. Please use this code to complete your authentication process. or Click on ${setPasswordLink}`;
+
+    client.messages
+      .create({
+        body: messageBody,
+        from: PHONE_NUMBER,
+        to: "+91" + to,
+      })
+      .then((message) => {
+        console.log("Message SID:", message.sid);
+        resolve("OTP sent successfully");
+      })
+      .catch((error) => {
+        console.error("Error sending OTP:", error.message);
+        reject("Error sending OTP");
+      });
+  });
+}
+
+module.exports = { storeOTP, getStoredDataByOTP, sendOtpEmail, sendOtpSms };
