@@ -93,9 +93,9 @@ const getEmployeeDetails = async (req, res) => {
 
 //get employee details by id
 const getEmployeeDetailsById = async (req, res) => {
-  const { _id } = req.query;
+  const { id } = req.params || req.query;
   try {
-    const user = await User.findOne({ _id });
+    const user = await User.findOne({ _id: id });
     if (!user) return res.status(404).json("User not found!");
     res.status(200).send(user);
   } catch (error) {
