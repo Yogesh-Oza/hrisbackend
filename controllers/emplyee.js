@@ -5,11 +5,12 @@ const {
   sendOtpEmail,
   storeOTP,
   getStoredDataByOTP,
+  sendOtpSms,
 } = require("../middlewares/OtpMethods");
 
 const OnBoardUser = async (req, res) => {
   try {
-    const { email, firstName } = req.body;
+    const { email, firstName, phoneNumber } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -21,6 +22,7 @@ const OnBoardUser = async (req, res) => {
     const otp = crypto.randomInt(100000, 999999).toString();
     storeOTP(email, otp);
 
+    await sendOtpSms(phoneNumber, otp);
     await sendOtpEmail(email, firstName, otp);
     res.send({ message: "OTP sent successfully" });
   } catch (error) {

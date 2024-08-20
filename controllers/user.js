@@ -12,7 +12,7 @@ const signupUser = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    
+
     if (savedUser) return res.status(200).json("Signup successful!");
   } catch (error) {
     console.error(error);
@@ -39,7 +39,7 @@ const authenticateUser = async (req, res) => {
       return res.status(401).json("Invalid password!");
     }
     const token = await generateToken({ userId: user._id });
-    return res.status(200).json({ token });
+    return res.status(200).json({ token: token, userId: user._id });
   } catch (error) {
     console.error(error);
     return res.status(500).json("Internal server error!");
