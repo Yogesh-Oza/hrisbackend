@@ -29,4 +29,8 @@ app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
 
+app.get("/", (req, res) => {
+  res.send({ message: "Welcome to HRIS Server!" });
+});
+
 console.log("newcode");
