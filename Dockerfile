@@ -16,5 +16,5 @@ COPY . .
 # Expose the port your app runs on (e.g., 3000)
 EXPOSE 3000    
 
-# Define the command to start your application (replace "start" if necessary)
+# Define the command to start your application (replace "start" if necessary)zz
 CMD ["npm", "start"]
